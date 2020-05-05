@@ -74,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [currentColor, setCurrentColor] = React.useState('teal');
+  const [colors, setColor] = React.useState(['purple', '#e15764']);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -83,6 +84,15 @@ export default function PersistentDrawerLeft() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const updateCurrentColor = (newColor) => {
+    console.log(newColor.hex);
+    setCurrentColor(newColor.hex);
+  };
+
+  const addNewColor = () => {
+    setColor([...colors, currentColor]);
   };
 
   return (
@@ -135,10 +145,15 @@ export default function PersistentDrawerLeft() {
         </div>
 
         <ChromePicker
-          color="purple"
-          onChangeComplete={(newColor) => console.log(newColor)}
+          color={currentColor}
+          onChangeComplete={updateCurrentColor}
         />
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: currentColor }}
+          onClick={addNewColor}
+        >
           Add Color
         </Button>
       </Drawer>
@@ -148,6 +163,11 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <ul>
+          {colors.map((color) => (
+            <li style={{backgroundColor: color}}>{color}</li>
+          ))}
+        </ul>
       </main>
     </div>
   );
