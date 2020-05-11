@@ -118,12 +118,9 @@ class NewPaletteForm extends Component {
     const randomColor = allColors[rand];
     this.setState({ colors: [...this.state.colors, randomColor] });
   }
-  handleSubmit(newPaletteName) {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-      colors: this.state.colors,
-    };
+  handleSubmit(newPalette) {
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
+    newPalette.colors = this.state.colors;
     this.props.savePalette(newPalette);
     this.props.history.push('/');
   }
@@ -169,7 +166,9 @@ class NewPaletteForm extends Component {
           </div>
           <Divider />
           <div className={classes.container}>
-            <Typography variant="h4" gutterButton>Design Your Palette</Typography>
+            <Typography variant="h4" gutterButton>
+              Design Your Palette
+            </Typography>
             <div className={classes.buttons}>
               <Button
                 variant="contained"
