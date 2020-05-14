@@ -18,6 +18,8 @@ export default {
     justifyContent: 'center',
     backgroundColor: '##2ed9ff',
     backgroundImage: `url(${bg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     overflow: 'scroll',
   },
   heading: {
